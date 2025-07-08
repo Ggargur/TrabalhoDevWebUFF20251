@@ -1,11 +1,13 @@
 package com.TavaresGargur.PCShop.service;
 
-import com.TavaresGargur.PCShop.model.Produto;
-import com.TavaresGargur.PCShop.repository.ProdutoRepository;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.TavaresGargur.PCShop.model.Produto;
+import com.TavaresGargur.PCShop.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
@@ -14,10 +16,6 @@ public class ProdutoService {
 
     public ProdutoService(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
-    }
-
-    public List<Produto> listarTodos() {
-        return produtoRepository.findAll();
     }
 
     public Optional<Produto> buscarPorId(Long id) {
@@ -32,7 +30,11 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public List<Produto> listarPorCategoria(Long categoriaId) {
-        return produtoRepository.findByCategoriaId(categoriaId);
+    public Page<Produto> listarTodosPaginado(Pageable pageable) {
+        return produtoRepository.findAll(pageable);
+    }
+
+    public Page<Produto> listarPorCategoria(Long categoriaId, Pageable pageable) {
+        return produtoRepository.findByCategoriaId(categoriaId, pageable);
     }
 }
