@@ -10,7 +10,6 @@ import FAQ from "./components/FAQ";
 import HelpPopover from "./components/HelpPopover";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
-import ProductModal from "./components/ProductModal";
 
 function App() {
   useEffect(() => {
@@ -100,7 +99,6 @@ function App() {
         ]}
       />
       <Footer />
-      <ProductModal />
     </>
   );
 }
