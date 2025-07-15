@@ -15,11 +15,10 @@ function Footer() {
             </p>
           </div>
           <div className="col-lg-6 col-md-12 mb-4 text-center">
-            <h5 className="text-uppercase">Siga-nos</h5>
+            <h5 className="text-uppercase" id="contatos">Siga-nos</h5>
             {["facebook-f", "instagram", "twitter", "whatsapp"].map((icon) => (
               <a
                 key={icon}
-                href="#"
                 className="btn btn-outline-light btn-floating m-1"
                 role="button"
               >

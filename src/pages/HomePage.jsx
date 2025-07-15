@@ -2,16 +2,14 @@ import React, { useEffect } from "react";
 import Tooltip from "bootstrap/js/dist/tooltip";
 import Popover from "bootstrap/js/dist/popover";
 
-import Navbar from "./components/Navbar";
-import Carousel from "./components/Carousel";
-import AlertBar from "./components/AlertBar";
-import ProductList from "./components/ProductList";
-import FAQ from "./components/FAQ";
-import HelpPopover from "./components/HelpPopover";
-import Testimonials from "./components/Testimonials";
-import Footer from "./components/Footer";
+import Carousel from "../components/Carousel";
+import AlertBar from "../components/AlertBar";
+import ProductList from "../components/ProductList";
+import FAQ from "../components/FAQ/FAQ";
+import HelpPopover from "../components/HelpPopover";
+import Testimonials from "../components/Testimonials";
 
-function App() {
+function HomePage() {
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll(
       '[data-bs-toggle="tooltip"]'
@@ -30,7 +28,6 @@ function App() {
 
   return (
     <>
-      <Navbar />
       <Carousel
         imagens={[
           {
@@ -98,9 +95,8 @@ function App() {
           },
         ]}
       />
-      <Footer />
     </>
   );
 }
 
-export default App;
+export default HomePage;

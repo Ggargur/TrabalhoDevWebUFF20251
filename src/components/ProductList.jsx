@@ -9,7 +9,6 @@ function ProductList({ produtos }) {
         {produtos.map((item, index) => (
           <>
             <ProductCard
-              key={index}
               src={item.src}
               index={index + 1}
               descricao={item.descricao}

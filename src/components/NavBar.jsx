@@ -1,12 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-function Navbar() {
+function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          <i className="fas fa-desktop"></i> PC Shop
-        </a>
+        <NavLink className="navbar-brand" to="/">
+          <i className="fas fa-desktop"></i>
+          PC Shop
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -19,25 +21,25 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Início
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to="/produtos">
                 Produtos
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to="/carrinho">
+                Carrinho
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#contatos">
                 Contato
               </a>
             </li>
           </ul>
           <div className="d-flex gap-2">
-            <button className="btn btn-outline-light">
+            <NavLink className="btn btn-outline-light" to="/login">
               <i className="fas fa-user me-1"></i> Entrar
-            </button>
+            </NavLink>
             <button className="btn btn-outline-light">
               <i className="fas fa-box me-1"></i> Meus Pedidos
             </button>
@@ -48,4 +50,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
