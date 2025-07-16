@@ -9,12 +9,14 @@ function ProductList({ produtos }) {
         {produtos.map((item, index) => (
           <>
             <ProductCard
+              key={`card${index}`}
               src={item.src}
               index={index + 1}
               descricao={item.descricao}
               nome={item.nome}
             />
             <ProductModal
+              key={`modal${index}`}
               nome={item.nome}
               descricaoDetalhada={item.descricaoDetalhada}
               index={index + 1}

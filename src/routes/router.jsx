@@ -3,9 +3,9 @@ import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 
 import HomePage from "../pages/HomePage";
-// import ProductListPage from "../pages/ProductListPage";
 // import AdminPage from "../pages/AdminPage";
-// import CartPage from "../pages/CartPage";
+import ProductListPage from "../pages/ProductListPage";
+import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 
@@ -15,9 +15,9 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      // { path: "produtos", element: <ProductListPage /> },
       // { path: "admin", element: <AdminPage /> },
-      // { path: "cart", element: <CartPage /> },
+      { path: "produtos", element: <ProductListPage /> },
+      { path: "cart", element: <CartPage /> },
     ],
   },
   {

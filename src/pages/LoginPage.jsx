@@ -3,9 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../utils/validationSchemas";
 import { useAuth } from "../contexts/AuthContext";
 import { Form, Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,8 +18,10 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
+      navigate("/");
     } catch (err) {
-      alert("Erro ao fazer login");
+        const mensagem = err.response?.data || "Erro inesperado ao tentar logar.";
+        toast.error(mensagem); 
     }
   };
 
