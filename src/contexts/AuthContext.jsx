@@ -10,11 +10,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     if (token) {
       axios
         .get("/auth/me", {
-          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true
         })
         .then((res) => setUser(res.data))
@@ -40,8 +40,10 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const token = () => sessionStorage.getItem("token");
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, token, loading }}>
       {children}
     </AuthContext.Provider>
   );

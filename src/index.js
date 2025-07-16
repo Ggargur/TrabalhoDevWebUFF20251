@@ -10,6 +10,8 @@ import { RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
+import { ErrorProvider } from "./contexts/ErrorProvider";
+import { FavoritesProvider } from "./contexts/FavoritesContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,9 +28,13 @@ createRoot(root).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
+        <ErrorProvider>
+          <CartProvider>
+            <FavoritesProvider>
+              <RouterProvider router={router} />
+            </FavoritesProvider>
+          </CartProvider>
+        </ErrorProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

@@ -19,11 +19,15 @@ public class Produto {
 
     private String nome;
 
+    @Column(length = 500)
     private String descricao;
 
     private BigDecimal preco;
 
     private Integer estoque;
+
+    @Column(length = 500)
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")

@@ -1,5 +1,7 @@
 package com.TavaresGargur.PCShop.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,4 +28,12 @@ public class Usuario {
     
     @Column()
     private boolean isAdmin;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "usuario_produto_favorito",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Produto> favoritos;
 }

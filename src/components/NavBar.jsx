@@ -32,10 +32,17 @@ function NavBar() {
                 Carrinho
               </NavLink>
             </li>
-            {user?.isAdmin && (
+            {user?.admin && (
               <li className="nav-item">
-                <NavLink className="nav-link" to="/cart">
+                <NavLink className="nav-link" to="/admin/produtos/novo">
                   Cadastro Produtos
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/favoritos">
+                  Favoritos
                 </NavLink>
               </li>
             )}

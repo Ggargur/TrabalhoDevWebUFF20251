@@ -4,11 +4,13 @@ import { loginSchema } from "../utils/validationSchemas";
 import { useAuth } from "../contexts/AuthContext";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useError } from "../contexts/ErrorProvider";
 
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { showError } = useError();
+
   const {
     register,
     handleSubmit,
@@ -21,7 +23,7 @@ export default function LoginPage() {
       navigate("/");
     } catch (err) {
         const mensagem = err.response?.data || "Erro inesperado ao tentar logar.";
-        toast.error(mensagem); 
+        showError(mensagem);
     }
   };
 

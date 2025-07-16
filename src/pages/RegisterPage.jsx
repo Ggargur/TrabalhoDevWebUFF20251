@@ -4,11 +4,12 @@ import { registerSchema } from "../utils/validationSchemas";
 import { useAuth } from "../contexts/AuthContext";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useError } from "../contexts/ErrorProvider";
 
 export default function RegisterPage() {
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
+  const { showError } = useError();
 
   const {
     register,
@@ -22,7 +23,7 @@ export default function RegisterPage() {
       navigate("/");
     } catch (err) {
       const mensagem = err.response?.data || "Erro inesperado ao tentar logar.";
-      toast.error(mensagem);
+      showError(mensagem);
     }
   };
 
@@ -57,6 +58,17 @@ export default function RegisterPage() {
           />
           <Form.Control.Feedback type="invalid">
             {errors.password?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Confirmar Senha</Form.Label>
+          <Form.Control
+            {...register("confirmPassword")}
+            type="password"
+            isInvalid={!!errors.confirmPassword}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.confirmPassword?.message}
           </Form.Control.Feedback>
         </Form.Group>
         <Button type="submit">Cadastrar</Button>

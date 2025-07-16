@@ -7,21 +7,19 @@ function ProductList({ produtos }) {
     <div className="container mt-4">
       <div className="row">
         {produtos.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <ProductCard
-              key={`card${index}`}
               src={item.src}
               index={index + 1}
               descricao={item.descricao}
               nome={item.nome}
             />
             <ProductModal
-              key={`modal${index}`}
               nome={item.nome}
               descricaoDetalhada={item.descricaoDetalhada}
               index={index + 1}
             />
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
