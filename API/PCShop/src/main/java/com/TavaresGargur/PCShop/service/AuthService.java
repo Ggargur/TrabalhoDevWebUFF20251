@@ -1,12 +1,18 @@
 package com.TavaresGargur.PCShop.service;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.TavaresGargur.PCShop.dto.LoginRequest;
 import com.TavaresGargur.PCShop.dto.RegisterRequest;
-import com.TavaresGargur.PCShop.model.User;
+import com.TavaresGargur.PCShop.exception.SenhaInvalidaException;
+import com.TavaresGargur.PCShop.exception.UsuarioDuplicadoException;
+import com.TavaresGargur.PCShop.exception.UsuarioNaoEncontradoException;
+import com.TavaresGargur.PCShop.model.Usuario;
 import com.TavaresGargur.PCShop.repository.UserRepository;
 
 @Service
@@ -14,34 +20,39 @@ import com.TavaresGargur.PCShop.repository.UserRepository;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public void register(RegisterRequest request) {
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    public Usuario register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email já está em uso");
+            throw new UsuarioDuplicadoException("Email já está em uso");
         }
 
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Nome de usuário já está em uso");
+        if (userRepository.existsByName(request.getName())) {
+            throw new UsuarioDuplicadoException("Nome de usuário já está em uso");
         }
 
-        User user = User.builder()
-                .username(request.getUsername())
+        Usuario user = Usuario.builder()
+                .name(request.getName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder().encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);
+        return user;
     }
 
-    public User login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    public Usuario login(LoginRequest request) {
+        Usuario user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário não encontrado"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Senha inválida");
+        if (!passwordEncoder().matches(request.getPassword(), user.getPassword())) {
+            throw new SenhaInvalidaException("Senha inválida");
         }
 
-        return user; // ou gere um JWT aqui
+        return user;
     }
 }
